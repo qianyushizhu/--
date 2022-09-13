@@ -1,0 +1,246 @@
+{
+	"easycom": {
+		"^u-(.*)": "@/uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+			
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "松子",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/pdfLibrary/index",
+			"style": {
+				"navigationBarTitleText": "资料库",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/pdfList/pdfList",
+			"style": {
+				"navigationBarTitleText": "文库",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/joinVip/joinVip",
+			"style": {
+				"navigationBarTitleText": "加入我们",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/vipLogin/vipLogin",
+			"style": {
+				"navigationBarTitleText": "会员登录",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/pdfList/pdfDetail/pdfDetail",
+			"style": {
+				"navigationBarTitleText": "详情"
+			}
+		},
+		{
+			"path": "pages/index/articleDetail/articleDetail",
+			"style": {
+				"navigationBarTitleText": "文章详情"
+			}
+		},
+		{
+			"path": "pages/index/aboutUs/aboutUs",
+			"style": {
+				"navigationBarTitleText": "关于我们"
+			}
+		},
+		{
+			"path": "pages/index/contactUs/contactUs",
+			"style": {
+				"navigationBarTitleText": "联系我们"
+			}
+		},
+		{
+			"path": "pages/index/picture/picture",
+			"style": {
+				"navigationBarTitleText": "相册动态",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/index/picture/activePic/activePic",
+			"style": {
+				"navigationBarTitleText": "图片详情"
+			}
+		},
+		{
+			"path": "pages/show/show",
+			"style": {
+				"navigationBarTitleText": "会员展示",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/show/showDetail/showDetail",
+			"style": {
+				"navigationBarTitleText": "公司介绍"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的",
+				"enablePullDownRefresh": true
+			}
+		},
+		{
+			"path": "pages/my/myCard/myCard",
+			"style": {
+				"navigationBarTitleText": "我的名片"
+			}
+		},
+		{
+			"path": "pages/my/myCollect/myCollect",
+			"style": {
+				"navigationBarTitleText": "我的收藏"
+			}
+		},
+		{
+			"path": "pages/my/myDownload/myDownload",
+			"style": {
+				"navigationBarTitleText": "浏览记录"
+			}
+		}
+
+		, {
+			"path": "pages/index/pdfList/pdfcanvas/pdfcanvas",
+			"style": {
+				"navigationBarTitleText": "文档海报",
+				"enablePullDownRefresh": false
+			}
+
+		}
+
+		, {
+			"path": "pages/index/webView/webView",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/index/articleDetail/articleCanvas/articleCanvas",
+			"style": {
+				"navigationBarTitleText": "资讯海报",
+				"enablePullDownRefresh": false
+			}
+
+		}, {
+			"path": "pages/my/about/about",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}, 
+		{
+			"path": "pages/my/addCard/addCard",
+			"style": {
+				"navigationBarTitleText": "填写信息",
+				"enablePullDownRefresh": false
+			}
+		
+		},
+		{
+			"path": "pages/my/accountManagement/accountManagement",
+			"style": {
+				"navigationBarTitleText": "账号管理",
+				"enablePullDownRefresh": false
+			}
+		
+		}
+	    ,{
+            "path" : "pages/login/login",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my/shareCard/shareCard",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "分享卡片",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/my/inviteCanvas/inviteCanvas",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/updateInfo/updateInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/articleDetail/tipActicle/tipActicle",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "行业资讯主题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "松子",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	 "lazyCodeLoading": "requiredComponents",
+	"tabBar": {
+		"color": "#BEBEBE",
+		"selectedColor": "#49C265",
+		"borderStyle": "white",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/new/gx_icon_shouye@2x.png",
+				"selectedIconPath": "static/index/icon_shouye@2x.png",
+				"text": "主页"
+			},
+			
+			{
+				"pagePath": "pages/pdfLibrary/index",
+				"iconPath": "static/index/sz_icon_hangyezixun@2x(1).png",
+				"selectedIconPath": "static/my/sz_icon_hangyezixun@2x.png",
+				"text": "行业资讯"
+			},
+
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/new/gx_icon_wode@2x.png",
+				"selectedIconPath": "static/my/sz_icon_wode@2x.png",
+				"text": "我的"
+			}
+		]
+	}
+}
