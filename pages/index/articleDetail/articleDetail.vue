@@ -35,7 +35,7 @@
 						</view>
 					</view>
 					
-					<view class="" style="font-size: 16px;
+					<view class="" v-if="detail.topicIdArr.length!==0" style="font-size: 16px;
 						font-family: PingFangSC-Semibold, PingFang SC;
 						font-weight: 600;
 						color: #333333;
@@ -92,7 +92,7 @@
 	</u-popup>
 	</view>
   
-    
+    <u-mask :show="xxxshow"></u-mask>
   </view>
   
 </template>
@@ -105,6 +105,7 @@
 	  data(){
 		  return {
 			  show:false,
+			  xxxshow:true,
 			  detail:{},
 			  id:'',
 			  share:{
@@ -131,7 +132,9 @@
 			 })
 			  return
 			}
-						
+			uni.showLoading({
+				title:'加载中'
+			})			
 			this.id = opitons.id ? opitons.id : opitons.scene
 			this.getArticleDetail(this.id)
 			  
@@ -174,7 +177,8 @@
 			let obj ={
 				name:this.detail.name,
 				id:this.detail.articleId,
-				logoId:this.$imgUrl2 + this.detail.logoId.split('/')[3]
+				logoId:this.$imgUrl2 + this.detail.logoId.split('/')[3],
+				type:'acticle'
 			}
 			console.log(obj)
 		   uni.navigateTo({
@@ -249,6 +253,8 @@
 					  this.share.imageUrl = res.data.logoId
 					  this.share.title = res.data.title
 					  this.detail = res.data
+					  this.xxxshow = false
+					  uni.hideLoading()
 				  }
 			  })
 		  }
@@ -256,6 +262,9 @@
   }
 </script>
 <style lang="less" scoped>
+	/deep/ .u-mask{
+		background-color: #FFFFFF !important;
+	}
 	.gundongtiao::-webkit-scrollbar {
     display: none;
 }

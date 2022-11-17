@@ -1,7 +1,7 @@
 <template>
 	<view class="login">
-		<view class="login_img"><image src="../../static/new/logozzz.png"></image></view>
-		<view class="login_text">和光荟</view>
+		<view class="login_img"><image src="../../static/my/songzi@2x.png"></image></view>
+		<view class="login_text">松子</view>
 
 		<button class="login_btn1" @click="loginBack" v-show="showLoginBack">微信登录</button>
 		<button class="login_btn" open-type="getPhoneNumber" v-show="showRegister" @getphonenumber="onGetPhoneNumber">微信登录</button>
@@ -57,7 +57,7 @@ export default {
 							this.showRegister = false;
 							this.showLoginBack = true;
 							this.data = res2.data;
-						} else if (res2.code == 5) {
+						} else if (res2.code == 5 ) {
 							console.log('未注册');
 							this.sessionKey = res2.sessionKey;
 							this.openId = res2.openId;
@@ -305,7 +305,7 @@ export default {
 .login_btn {
 	width: 80%;
 	margin-top: 150rpx;
-	background: #4a90e2;
+	background: #49C265;
 	border-radius: 46rpx;
 	font-size: 28rpx;
 	font-family: PingFang-SC-Regular, PingFang-SC;
@@ -316,7 +316,7 @@ export default {
 .login_btn1 {
 	width: 80%;
 	margin-top: 80rpx;
-	background: #4a90e2;
+	background: #49C265;
 	border-radius: 46rpx;
 	font-size: 28rpx;
 	font-family: PingFang-SC-Regular, PingFang-SC;
@@ -346,8 +346,9 @@ export default {
 .popup_btn {
 	width: 80%;
 	height: 72rpx;
-	background: #4a90e2;
+	background: #49C265;
 	border-radius: 36rpx;
+	
 	font-size: 28rpx;
 	font-family: PingFang-SC-Medium, PingFang-SC;
 	font-weight: 500;

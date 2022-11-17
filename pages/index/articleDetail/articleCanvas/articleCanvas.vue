@@ -19,11 +19,12 @@ export default {
 			erweimaCode: '',
 			userName: '',
 			headerImg: '',
-			pdfId: '',
-			str: '和光荟',
+			id: '',
+			str: '松子创业营',
 			show: false,
 			context: null,
-			detail:{}
+			detail:{},
+			type:''
 		};
 	},
 	onLoad(options) {
@@ -33,11 +34,12 @@ export default {
 		if (options) {
 			this.name = detail.name;
 			this.logo =  detail.logoId;
-			this.pdfId = detail.id;
-			console.log(this.logo, this.name, this.pdfId);
+			this.type =  detail.type;
+			this.id = detail.id;
+			console.log(this.logo, this.name, this.id);
 			this.headerImg = uni.getStorageSync('headLogoUrl');
+			this.userName = uni.getStorageSync('userName')
 			
-			this.userName = uni.getStorageSync('userName');
 		}
 		this.getCode();
 	},
@@ -46,10 +48,11 @@ export default {
 			this.show = false;
 		},
 		comflim() {
-			console.log('删除了')
-		this.context = uni.createCanvasContext('firstCanvas', this);
-		this.context.clearRect(0, 0, this.context.width, this.context.height);
-		this.getCode();
+			console.log(this.userName.length)
+			
+			this.context = uni.createCanvasContext('firstCanvas', this);
+			// this.context.clearRect(0, 0, this.context.width, this.context.height);
+			this.getCode();
 		
 		},
 		drawCanvas() {
@@ -58,37 +61,40 @@ export default {
 			_this.context = uni.createCanvasContext('firstCanvas', _this);
 			_this.context.width = 300;
 			_this.context.height = 510;
-			_this.context.drawImage('/static/new/hgh_icon_beijing@2x.png', 0, 0, 300, 510);
+			_this.context.drawImage('/static/bg.png', 0, 0, 300, 510);
 			
 			_this.context.drawImage(_this.logo, 48, 140, 205, 272);
 			_this.context.drawImage(_this.erweimaCode, 210,425, 70, 70) //二维码
 			
 			
-			
-			_this.context.setFontSize(15);
-			_this.context.setFillStyle('#A6A6A6');
-			_this.context.fillText('为您推荐', 80, 65); //文字
-			_this.context.save();
+			// _this.context.setFontSize(15);
+			// _this.context.setFillStyle('#A6A6A6');
+			// _this.context.fillText('为您推荐', 80, 105); //文字
+			// _this.context.save();
 			// 标题
-			_this.context.font = 'normal bold 16px Arial';
+			_this.context.font = 'normal 13px Arial';
 			_this.context.setFillStyle('rgba(0, 0, 0, 0.85)');
-			_this.drawtext(_this.context,_this.name, 30,95, 250);
-			
-		
+			_this.drawtext(_this.context,_this.name, 30,420, 150);
+			let a = this.userName
+				if(a.length>7){
+					a= a.slice(0,7)+'...'
+				}else{
+					a =a
+				}
 			
 			// 昵称
 			_this.context.font = 'normal bold 20px Arial';
 			_this.context.setFillStyle('#000');
-			_this.context.fillText(_this.userName, 80, 40);
+			_this.context.fillText(a, 85, 85);
 			_this.context.save();
 			_this.context.font = 'PingFangSC-Semibold, PingFang SC;';
 			_this.context.setFontSize(15);
 			_this.context.setFillStyle('rgba(0, 0, 0, .65)');
-			_this.context.fillText('带来的分享', _this.context.measureText(_this.userName).width + 80+25, 40); //文字
+			_this.context.fillText('带来的分享', 85, 105); //文字
 			// 头像
-			_this.context.arc(50 / 2 + 20, 50 / 2 + 20, 50 / 2, 0, Math.PI * 2, false);
+			_this.context.arc(50 / 2 + 24, 50 / 2 + 65, 50 / 2, 0, Math.PI * 2, false);
 			_this.context.clip(); //画好了圆 剪切  原始画布中剪切任意形状和尺寸。
-			_this.context.drawImage(_this.headerImg, 20,20, 50, 50);
+			_this.context.drawImage(_this.headerImg, 24, 65, 50, 50);
 			_this.context.restore(); //恢复之前保存的绘图上下文 恢复之前保存的绘图问下文即状态 还可以继续绘制
 			_this.context.save();
 			
@@ -162,7 +168,15 @@ export default {
 			uni.showLoading({
 				title: '生成中...'
 			});
-			getAppletCode({ pagePath: 'pages/index/articleDetail/articleDetail', scene: this.pdfId }).then(res => {
+			let a ={}
+			if(this.type == 'acticle'){
+				a.pagePath =  'pages/index/articleDetail/articleDetail' ,
+				a.scene = this.id
+			}else{
+				a.pagePath =  'pages/index/pdfList/pdfDetail/pdfDetail' ,
+				a.scene = this.id
+			}
+			getAppletCode(a).then(res => {
 				if (res.code == 0) {
 					Promise.all([this.onlineToLocal(this.$imgUrl2 + res.data.fid, 1), this.onlineToLocal(this.logo, 2), this.onlineToLocal(this.headerImg, 3)])
 						.then(result => {
@@ -190,6 +204,7 @@ export default {
 						if (res.statusCode === 200) {
 							if (type == 1) {
 								that.erweimaCode = res.tempFilePath;
+								console.log(that.erweimaCode)
 							} else if (type == 3) {
 								that.headerImg = res.tempFilePath;
 							} else {
@@ -304,10 +319,10 @@ export default {
 .wrap2 {
 	height: 72rpx;
 	border-radius: 16rpx;
-	border: 0.5px solid #588BFB;
+	border: 0.5px solid #49C265;
 	background-color: #fff;
 	width: 216rpx;
-	color: #588BFB;
+	color: #49C265;
 	justify-content: center;
 	align-items: center;
 	display: flex;
@@ -327,7 +342,7 @@ export default {
 .wrap3 {
 	height: 72rpx;
 	border-radius: 16rpx;
-	background-color: #588BFB;
+	background-color: #49C265;
 	width: 216rpx;
 	justify-content: center;
 	align-items: center;
@@ -372,11 +387,11 @@ export default {
 		color: rgba(0, 0, 0, 0.85);
 		view:last-child {
 			border-radius: 8rpx;
-			border: 2rpx solid #4a90e2;
+			border: 2rpx solid #49C265;
 			font-size: 24rpx;
 			font-family: PingFang-SC-Regular, PingFang-SC;
 			font-weight: 400;
-			color: #4a90e2;
+			color: #49C265;
 			padding: 2rpx 22rpx;
 		}
 	}
@@ -386,7 +401,7 @@ export default {
 	margin-top: 76rpx;
 	width: 526rpx;
 	height: 84rpx;
-	background: #007AFC;
+	background: #49C265;
 	border-radius: 42rpx;
 	border-radius: 16rpx;
 	font-family: PingFang-SC-Regular, PingFang-SC;
@@ -404,7 +419,7 @@ export default {
 	font-size: 28rpx;
 	font-family: PingFang-SC-Regular, PingFang-SC;
 	font-weight: 400;
-	color: #007AFC;
+	color: #49C265;
 	text-align: center;
 	line-height: 84rpx;
 	background-color: #ffffff;

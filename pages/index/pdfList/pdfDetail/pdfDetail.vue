@@ -19,7 +19,6 @@
    			
    		</view>
    		<view class="" v-if="pdfDetail.tags" style="display: flex;align-items: center;font-size: 12px;
-   		font-family: PingFang-SC-Regular, PingFang-SC;
    		font-weight: 400;
    		color: #F5A623;
    		margin-bottom: 10px;
@@ -30,8 +29,7 @@
    						</view>
    					</view>
    					
-   					<view class="" style="font-size: 16px;
-   						font-family: PingFangSC-Semibold, PingFang SC;
+   					<view class="" v-if="pdfDetail.topicIdArr.length !== 0" style="font-size: 16px;
    						font-weight: 600;
    						color: #333333;
    						margin-bottom: 12px;
@@ -40,11 +38,9 @@
    						所属专题
    					</view>
    					<view class="gundongtiao" style="display: flex;font-size: 12px;
-   					font-family: PingFang-SC-Regular, PingFang-SC;
    					font-weight: 400;
    					color: rgba(0,0,0,0.85);
    					letter-spacing: 1px;
-   					
    					overflow: auto;
    					">
    									<view class="" @click="gototopicName(item1.topicId,item1.topicName)" v-for="item1 in pdfDetail.topics" :key="item1.topicId" style="margin-right: 12px;
@@ -132,6 +128,8 @@
 				:content="content"
 				:show-cancel-button="true"
 			></u-modal>
+			
+			<u-mask :show="xxxshow"></u-mask>
 
   </view>
 
@@ -147,9 +145,13 @@
 	 
     data() {
       return {
+		  xxxshow:true,
 		  time:'',
         show: false,
-		pdfDetail:{},
+		pdfDetail:{
+			title:'加载中',
+			upTime:'加载中'
+		},
 		cloudUrlList:[],
 			share:{
 			    title:'',
@@ -185,7 +187,10 @@
 		  })
 		  return
 		}
-		
+		uni.showLoading({
+			title:'加载中',
+			mask:true
+		})	
 		if (options) {
 		this.id = options.id ? options.id : options.scene
 			this.getPDFDetail(this.id)
@@ -301,11 +306,16 @@
 		    return
 		  }
 		  // console.log(this.pdfDetail.id)
-		  
+		  let obj ={
+		  	name:this.pdfDetail.title,
+		  	id:this.pdfDetail.pdfId,
+		  	logoId:this.$imgUrl2+this.pdfDetail.imgList[0],
+			type:'pdf'
+		  }
+		uni.navigateTo({
+		  url: `/pages/index/articleDetail/articleCanvas/articleCanvas?detail=${JSON.stringify(obj)}`
+		})
 		
-		  uni.navigateTo({
-		    url: `../pdfcanvas/pdfcanvas?title=${this.pdfDetail.title}&logoId=${this.pdfDetail.imgList[0]}&pdfId=${this.pdfDetail.pdfId}`
-		  })
 		 
 		},
       changeShow(){
@@ -354,6 +364,9 @@
 			this.pdfDetail = res.data
 			this.share.title = this.pdfDetail.title
 			uni.setStorageSync('pdfTitle',res.data.name)
+			this.xxxshow = false
+			uni.hideLoading()
+			
 			
 		  })
 	  }
@@ -361,7 +374,9 @@
   }
 </script>
 <style lang="less" scoped>
-	
+	/deep/ .u-mask{
+		background-color: #FFFFFF !important;
+	}
   .pdfDetail {
     
     .pdfDetail_title {

@@ -65,7 +65,11 @@
 			res.data.forEach(item=>{
 					if(item.fileType == 2){
 						item. video = this.$imgUrl + item.fid
-						item. poster = this.$imgUrl + item.posterId
+						if(item.posterId !=''){
+							item. poster = this.$imgUrl + item.posterId
+						}else{
+							item. poster = this.$imgUrl+'EF49C6FF84E3'
+						}
 					}else{
 						item. image = this.$imgUrl + item.fid
 						this.list2.push(this.$imgUrl + item.fid)

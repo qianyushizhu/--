@@ -24,6 +24,7 @@
 				
 				{{ item.title }}.pdf
 				<text
+				v-if='item.hasTopic == 0'
 					style="width: 26px;
 							background: #49C265;
 							border-radius: 2px;
@@ -53,20 +54,22 @@
 				<text style="margin-left: 16rpx;">{{ item.createTime | year_date }}</text>
 			</view>
 			<view
+			v-if='item.tags'
 				class=""
 				style="display: flex;align-items: center;font-size: 12px;
 				font-family: PingFang-SC-Regular, PingFang-SC;
 				font-weight: 400;
 				color: #F5A623;
 				line-height: 17px;"
+				
 			>
 				<view
 					class=""
-					v-for="item in 3"
-					:key="item"
+					v-for="item1 in item.tags.split(',')"
+					:key="item1"
 					style="margin-right: 12px;display: center;flex-wrap: wrap;;align-items: center;height: 20px;background: rgba(245,166,35,0.2);border-radius: 4px;padding: 2px 12px;"
 				>
-					政务
+				{{item1}}
 				</view>
 			</view>
 		</view>
@@ -96,6 +99,7 @@ export default {
 			vipShow: false,
 			list: [],
 			pdfList: [],
+			
 			list1: [],
 			current: 0,
 			status: '没有更多了',
@@ -138,11 +142,17 @@ export default {
 		},
 		cancelVip() {},
 		search() {
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
 			uni.navigateTo({
 				url: '../index/pdfList/pdfList?keyword=' + this.keyword
 			});
 		},
 		godetail(index) {
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
 			this.browsePermission = this.list[index].browsePermission;
 			if (uni.getStorageSync('userRole') == 4 && item.browsePermission == 2) {
 				this.vipShow = true;
@@ -151,7 +161,7 @@ export default {
 			let timestamp = Math.round(new Date() / 1000);
 			if (timestamp - uni.getStorageSync('PDFsubMsg') >= 60 * 60) {
 				wx.requestSubscribeMessage({
-					tmplIds: ['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+					tmplIds: ['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 					success(res) {
 						console.log(res);
 						let timestamp = Math.round(new Date() / 1000);
@@ -170,6 +180,9 @@ export default {
 			});
 		},
 		toDetail(item) {
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
 			if (uni.getStorageSync('userRole') == 4 && item.browsePermission == 2) {
 				this.vipShow = true;
 				return;
@@ -177,7 +190,7 @@ export default {
 			let timestamp = Math.round(new Date() / 1000);
 			if (timestamp - uni.getStorageSync('subMsg') >= 21600) {
 				wx.requestSubscribeMessage({
-					tmplIds: ['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+					tmplIds: ['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 					success(res) {
 						console.log(res);
 						let timestamp = Math.round(new Date() / 1000);

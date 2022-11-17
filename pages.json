@@ -115,14 +115,6 @@
 			}
 		}
 
-		, {
-			"path": "pages/index/pdfList/pdfcanvas/pdfcanvas",
-			"style": {
-				"navigationBarTitleText": "文档海报",
-				"enablePullDownRefresh": false
-			}
-
-		}
 
 		, {
 			"path": "pages/index/webView/webView",
@@ -209,6 +201,60 @@
             }
             
         }
+        ,{
+            "path" : "pages/my/conactUs/conactUs",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "联系我们",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/actitlyOrder/actitlyOrder",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动报名",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/index/picture/activeDetail/activeDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "活动详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/topic/topic",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "专题",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/topic/topicDetail/topicDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "专题详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/topic/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "专题",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -232,8 +278,14 @@
 				"pagePath": "pages/pdfLibrary/index",
 				"iconPath": "static/index/sz_icon_hangyezixun@2x(1).png",
 				"selectedIconPath": "static/my/sz_icon_hangyezixun@2x.png",
-				"text": "行业资讯"
+				"text": "研报"
 			},
+			// {
+			// 	"pagePath": "pages/topic/topic",
+			// 	"iconPath": "static/zhuanti@2x.png",
+			// 	"selectedIconPath": "static/zhuanti@2x (1).png",
+			// 	"text": "专题"
+			// },
 
 			{
 				"pagePath": "pages/my/my",

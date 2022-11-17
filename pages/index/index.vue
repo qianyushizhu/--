@@ -11,18 +11,24 @@
       <!-- tabs -->
       <view class="index_tabs">
         <view @click="toAboutUs">
-          <image src="../../static/index/aboutUs.png"></image>
+          <image src="../../static/index/sz_icon_guanyuwomen@2x.png"></image>
           <text>关于我们</text>
         </view>
         <view @click="joinUs">
-          <image src="../../static/index/pic.png"></image>
+          <image src="../../static/index/sz_icon_guanyuhuodong@2x.png"></image>
           <text>关于活动</text>
         </view>
         
+		
         <view @click="toPdf">
           <image src="../../static/index/sz_icon_hangyezixun@2x.png"></image>
-          <text>行业资讯</text>
+          <text>研报</text>
         </view>
+		<view @click="tozhuanti">
+		  <image src="../../static/lj_icon_xiehuiwenku@2x.png"></image>
+		  <text>专题</text>
+		</view>
+		
       </view>
 
       <!-- 滚动 -->
@@ -104,7 +110,7 @@
       return {
 		  vipShow:false,
 		  share:{
-		      title:'和光荟',
+		      title:'松子创业营',
 		      path:'',
 		      imageUrl:'',
 		      desc:'',
@@ -125,7 +131,7 @@
 				status: 'loadmore',
 						iconType: 'flower',
 						loadText: {
-							loadmore: '上拉或点击加载更多',
+							loadmore: '',
 							loading: '努力加载中',
 							nomore: '没有更多数据'
 						},
@@ -139,7 +145,6 @@
     },
 	onReachBottom() {
 			this.currenPage = ++this.currenPage
-			this.status = 'loading'
 				this.getOnlineArticles(this.typeId)
 			
 	},
@@ -155,6 +160,12 @@
 		       }, 1000);
 	},
     methods: {
+		tozhuanti(){
+			 uni.$u.toast('功能还未开放');
+			// uni.switchTab({
+			// 	url:'/pages/topic/topic'
+			// })
+		},
 		toPdf(){
 			uni.switchTab({
 				url:'../pdfLibrary/index'
@@ -258,24 +269,30 @@
           pageSize: 10,
           typeId: typeId
         }).then(res => {
-			console.log(res.data[0].tags == "")
 			if(isRefs) this.articleListDetail = res.data
 			else  this.articleListDetail = this.articleListDetail.concat(res.data)
 			if(this.articleListDetail.length==res.count || res.count == 0) this.status = 'nomore'
-			else this.status = 'loadmore'
+			else this.status = 'loading'
          
         })
       },
       change(index) {
+		   if (uni.getStorageSync('status')==1){
+			   return false
+		   }
 		  console.log(index)
 		  this.currenPage = 1
 		  this.articleListDetail = []
         this.current = index;
 		this.typeId = this.tabs[index].typeId
 		this.getOnlineArticles(this.typeId)
+		
       },
 	  
 	  godetail(index) {
+		  if (uni.getStorageSync('status')==1){
+		  			   return false
+		  }
 		  if (!uni.getStorageSync('token')) {
 		   uni.showModal({
 		     title: "授权登录",
@@ -297,14 +314,11 @@
 			  url: '/pages/index/webView/webView?url=' + encodeURIComponent(this.banners[index].urlMsg)
 			})
 		}else if(this.banners[index].originType=='PDF'){
-			if(uni.getStorageSync('userRole')==4 && this.banners[index].browsePermission == 2){
-				this.vipShow = true
-				return
-			}
+			
 			let timestamp = Math.round(new Date() / 1000)
 			if(timestamp-uni.getStorageSync('PDFsubMsg')>=60*60*1){
 				wx.requestSubscribeMessage({
-					tmplIds:['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+					tmplIds:['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 					 success (res) { 
 						 console.log(res)
 						 let  timestamp = Math.round(new Date() / 1000)
@@ -318,11 +332,18 @@
 			uni.navigateTo({
 			  url:'pdfList/pdfDetail/pdfDetail?id='+this.banners[index].originId 
 			})
-		}else{
+		}
+		else if(this.banners[index].originType=='ACTIVITY'){
+			
+			uni.navigateTo({
+			  url:'/pages/index/picture/activeDetail/activeDetail?activityId='+this.banners[index].originId 
+			})
+		}
+		else{
 			let timestamp = Math.round(new Date() / 1000)
 			if(timestamp-uni.getStorageSync('ActiclesubMsg')>=60*60*1){
 				wx.requestSubscribeMessage({
-					tmplIds:['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+					tmplIds:['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 					 success (res) { 
 						 console.log(res)
 						 let  timestamp = Math.round(new Date() / 1000)
@@ -341,6 +362,10 @@
 	  },
       //跳转
       toPdfList() {
+		  
+		  if (uni.getStorageSync('status')==1){
+		  			   return false
+		  }
 		  if (!uni.getStorageSync('token')) {
 		   uni.showModal({
 		     title: "授权登录",
@@ -360,7 +385,7 @@
 		  let timestamp = Math.round(new Date() / 1000)
 		 if(timestamp-uni.getStorageSync('PDFsubMsg')>=60*60*1){
 		 	wx.requestSubscribeMessage({
-		 		tmplIds:['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+		 		tmplIds:['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 		 		 success (res) { 
 		 			 console.log(res)
 		 			 let  timestamp = Math.round(new Date() / 1000)
@@ -371,11 +396,15 @@
 		 		 }
 		 	})
 		 }
+		 
         uni.switchTab({
         	url:'../pdfLibrary/index'
         })
       },
       toArticleDetail() {
+		  if (uni.getStorageSync('status')==1){
+		  			   return false
+		  }
 		  if (!uni.getStorageSync('token')) {
 		   uni.showModal({
 		     title: "授权登录",
@@ -400,7 +429,7 @@
 			let timestamp = Math.round(new Date() / 1000)
 			if(timestamp-uni.getStorageSync('ActiclesubMsg')>=60+60*1){
 				wx.requestSubscribeMessage({
-					tmplIds:['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+					tmplIds:['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 					 success (res) { 
 						 console.log(res)
 						 let  timestamp = Math.round(new Date() / 1000)
@@ -418,6 +447,9 @@
        
       },
       toAboutUs() {
+		  if (uni.getStorageSync('status')==1){
+		  			   return false
+		  }
 		  if (!uni.getStorageSync('token')) {
 		   uni.showModal({
 		     title: "授权登录",
@@ -439,6 +471,9 @@
         })
       },
       joinUs() {
+		  if (uni.getStorageSync('status')==1){
+		  			   return false
+		  }
 		  if (!uni.getStorageSync('token')) {
 		   uni.showModal({
 		     title: "授权登录",

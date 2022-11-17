@@ -11,7 +11,7 @@
 						img-mode="aspectFill"
 						v-for="(item1, index1) in item.logos.split(',')"
 						:key="index1"
-						:image="'https://oss.juxinban.cn/' + item1"
+						:image="'https://file.innopinenut.com/' + item1"
 					></u-lazy-load>
 					<text
 						v-if="item.topicIdArr.length !== 0"
@@ -63,7 +63,7 @@
 			<view class="" v-else style="border-bottom: 2rpx solid rgba(0, 0, 0, 0.1) !important;padding: 40rpx 0;">
 				<view class="articletypetwo">
 					<view style="width: 222rpx;position: relative;">
-						<u-lazy-load border-radius="10" height="156" img-mode="aspectFill" :image="'https://oss.juxinban.cn/' + item.logoId"></u-lazy-load>
+						<u-lazy-load border-radius="10" height="156" img-mode="aspectFill" :image="'https://file.innopinenut.com/' + item.logoId"></u-lazy-load>
 						<text
 							v-if="item.topicIdArr.length !== 0"
 							style="width: 26px;
@@ -145,6 +145,9 @@ export default {
 	methods: {
 		toArticleDetail(id, index) {
 			console.log(id);
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
 			if (!uni.getStorageSync('token')) {
 				uni.showModal({
 					title: '授权登录',
@@ -166,7 +169,7 @@ export default {
 				let timestamp = Math.round(new Date() / 1000);
 				if (timestamp - uni.getStorageSync('ActiclesubMsg') >= 60 * 60 * 1) {
 					wx.requestSubscribeMessage({
-						tmplIds: ['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+						tmplIds: ['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 						success(res) {
 							console.log(res);
 							let timestamp = Math.round(new Date() / 1000);
@@ -190,7 +193,7 @@ export default {
 				let timestamp = Math.round(new Date() / 1000);
 				if (timestamp - uni.getStorageSync('ActiclesubMsg') >= 60 * 60 * 1) {
 					wx.requestSubscribeMessage({
-						tmplIds: ['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+						tmplIds: ['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 						success(res) {
 							console.log(res);
 							let timestamp = Math.round(new Date() / 1000);

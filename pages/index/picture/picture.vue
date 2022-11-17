@@ -14,7 +14,7 @@
 	  	 :is-scroll="false" :current="current"
 	  	  @change="change"></u-tabs>
 	  </view>
-    <view class="picture_search">
+    <view class="picture_search" style="">
       <u-search :show-action="false" :animation="true" v-model="searchValue" placeholder="请输入搜索内容" @change="search"></u-search>
       <!-- <u-search placeholder="日照香炉生紫烟" v-model="keyword"></u-search> -->
     </view>
@@ -41,7 +41,30 @@
    
 	  <!-- articles -->
 	  <view v-else-if="current == 0 && articleListDetail.length!==0">
-	    <articles :articleListDetail="articleListDetail" ></articles>
+		  <view class="articletypetwo" v-for="(item,index) in articleListDetail" :key="index" @click="toactiveDetail(item)">
+		  	<view style="width: 222rpx;position: relative;">
+		  		<u-lazy-load border-radius="10" height="156" img-mode="aspectFill" :image="'https://file.innopinenut.com/' + item.logoId"></u-lazy-load>
+		  		
+		  	</view>
+		  
+		  	<view class="desc">
+		  		<view class="desc_title">{{ item.title }}</view>
+		  		<view class="desc_collect">
+		  			<view>截至时间：{{ item.endSignTime | year_date }}</view>
+					<view class="" v-if='item.canSign' style="width: 80px;
+						height: 30px;
+						display: flex;
+						font: 12px;
+						color: #fff;
+						justify-content: center;
+						align-items: center;
+						background: #49C265;
+						border-radius: 12px;">
+						立即报名
+					</view>
+		  		</view>
+		  	</view>
+		  </view>
 	  </view>
 	  
 	  <view  v-else-if="current == 0 && articleListDetail.length == 0 || current == 1 && list.length==0" style="display: flex;justify-content: center;margin-top: 50rpx;">
@@ -59,6 +82,7 @@
 	getAlbumFiles,
 	} from '../../../common/request.js'
   export default {
+	 
     data() {
       return {
 		  tabs: [{
@@ -119,7 +143,16 @@
 		}).then(res=>{
 			res.data.forEach(item=>{
 				item.fileList.forEach(Element=>{
-					Element.route = this.$imgUrl + Element.fid
+					
+					if(Element.fileType == 2){
+						if(Element.posterId!=''){
+							Element.route = this.$imgUrl + Element.posterId
+						}else{
+							Element.route = '/static/dwdw.png'
+						}
+					}else{
+						Element.route = this.$imgUrl + Element.fid
+					}
 				})
 			})
 			this.list = res.data
@@ -139,6 +172,38 @@
 					else this.status = 'loadmore'
 		   
 		  })
+		},
+		toactiveDetail(item) {
+			let timestamp = Math.round(new Date() / 1000);
+			if (timestamp - uni.getStorageSync('ordersubMsg') >= 60 * 60) {
+				wx.requestSubscribeMessage({
+					tmplIds: ['HjopjHv0BDoxcE4IHVc85qIWZ8wEDbMtSlipfYGXtkg'],
+					success(res) {
+						console.log(res);
+						let timestamp = Math.round(new Date() / 1000);
+						uni.setStorageSync('ordersubMsg', timestamp);
+					},
+					fail(res) {
+						console.log(res);
+					}
+				});
+			}
+			if(item.originType == 1){
+				uni.navigateTo({
+					url:
+						'/pages/index/webView/webView?url=' +
+						encodeURIComponent(item.url) +
+						'&title=' +
+						item.title +
+						'&logoId=' +
+						item.logoId
+				});
+			}else{
+				uni.navigateTo({
+				  url:`/pages/index/picture/activeDetail/activeDetail?activityId=${item.activityId}`
+				})
+			}
+			
 		},
 		change(index){
 		  this.current=index
@@ -165,7 +230,15 @@
 				}).then(res=>{
 					res.data.forEach(item=>{
 						item.fileList.forEach(Element=>{
-							Element.route = this.$imgUrl + Element.fid
+							if(Element.fileType == 2){
+								if(Element.posterId!=''){
+									Element.route = this.$imgUrl + Element.posterId
+								}else{
+									Element.route = '/static/dwdw.png'
+								}
+							}else{
+								Element.route = this.$imgUrl + Element.fid
+							}
 						})
 					})
 					this.list = this.list.concat(res.data)
@@ -181,7 +254,15 @@
 				}).then(res=>{
 					res.data.forEach(item=>{
 						item.fileList.forEach(Element=>{
-							Element.route = this.$imgUrl + Element.fid
+							if(Element.fileType == 2){
+								if(Element.posterId!=''){
+									Element.route = this.$imgUrl + Element.posterId
+								}else{
+									Element.route = '/static/dwdw.png'
+								}
+							}else{
+								Element.route = this.$imgUrl + Element.fid
+							}
 						})
 					})
 					this.list = this.list.concat(res.data)
@@ -202,6 +283,48 @@
   }
 </script>
 <style scoped lang="less">
+	.articletypetwo {
+		display: flex;
+		padding: 20px 0;
+		border-bottom: 1px solid rgba(0,0,0,0.2);;
+		.desc {
+			margin-left: 30rpx;
+			flex: 1;
+			display: flex;
+			justify-content: space-between;
+			flex-direction: column;
+			.desc_collect {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				font-size: 24rpx;
+				font-family: PingFang-SC-Regular, PingFang-SC;
+				font-weight: 400;
+				color: rgba(0, 0, 0, 0.45);
+				.desc_collect_left {
+					display: flex;
+					align-items: center;
+					image {
+						width: 32rpx;
+						height: 32rpx;
+						margin-right: 10rpx;
+					}
+				}
+			}
+			.desc_title {
+				overflow: hidden; //一定要写
+				text-overflow: ellipsis; //超出省略号
+				display: -webkit-box; //一定要写
+				-webkit-line-clamp: 2; //控制行数
+				-webkit-box-orient: vertical; //一定要写
+				font-size: 32rpx;
+				font-family: PingFang-SC-Medium, PingFang-SC;
+				color: rgba(0, 0, 0, 0.75);
+				line-height: 50rpx;
+			}
+		}
+	}
+	
   .picture {
     padding: 0 30rpx;
   }

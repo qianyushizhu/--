@@ -57,6 +57,8 @@
 									uni.setStorageSync('companyId', res.data.companyId);
 									uni.setStorageSync('phone', res.data.phone);
 									uni.setStorageSync('serviceName', res.data.serviceName);
+									uni.setStorageSync('status', res.data.status);
+									uni.setStorageSync('status', 0);
 										if(uni.getStorageSync('expireTime')){
 											var timestamp = Math.round(new Date() / 1000)
 											let guoqishijian = uni.getStorageSync('expireTime')/1000
@@ -113,6 +115,19 @@
 	// 	        -ms-interpolation-mode:nearest-neighbor;
 
 	// }
+	
+	.overtext{
+		overflow: hidden; //超出的文本隐藏
+		
+		text-overflow: ellipsis; //溢出用省略号显示
+		
+		display: -webkit-box;
+		
+		-webkit-line-clamp: 2; // 超出多少行
+		
+		-webkit-box-orient: vertical;
+	
+	}
 	/*每个页面公共css */
   @import "uview-ui/index.scss";
 </style>

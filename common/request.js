@@ -1,10 +1,12 @@
-const API_BASE_URL = 'http://192.168.2.157:8890'
-// const API_BASE_URL = 'https://wx.c-fol.cn'
+// const API_BASE_URL = 'http://192.168.2.165:8892'
+const API_BASE_URL = 'https://api.innopinenut.com'
 const pathMsg = "/api/"
+
+
 
 // 登录接口
 var request = (url, method, data) => {
-  let token = uni.getStorageSync('token') || ''
+	let token = uni.getStorageSync('token') || ''
   let header = {
     'Content-Type': 'application/json',
     'token': token
@@ -412,4 +414,42 @@ module.exports = {
 getTopicPdfs: (data) => {
 	  return request('PDFInfo/getTopicPdfs', 'get', data) //登陆
 	},
+	
+	
+	getAppActivityList: (data) => {
+		  return request('activity/getAppActivityList', 'get', data) //登陆
+		},
+		getActivity: (data) => {
+			  return request('activity/getActivity', 'get', data) //登陆
+			},
+			signUp: (data) => {
+				  return request('activity/signUp', 'post', data) //登陆
+				},
+				getSignInfo: (data) => {
+					  return request('activity/getSignInfo', 'get', data) //登陆
+					},
+					
+					
+					
+			category: (data) => {
+				  return request('category', 'get', data) //登陆
+				},		
+					
+				TopicDetail: (data) => {
+					  return request('topic/TopicDetail/'+data, 'post', data) //登陆
+					},		
+				topic: (data) => {
+					  return request('topic/'+data, 'post', data) //登陆
+					},	
+						getTopics: (data) => {
+							  return request('topic/getTopics', 'get', data) //登陆
+							},	
+							getPics: (data) => {
+								  return request('topic/getPics', 'get', data) //登陆
+								},	
+								searchtopic: (data) => {
+									  return request('topic/'+data, 'get', data) //登陆
+									},	
+							
+							 
 }

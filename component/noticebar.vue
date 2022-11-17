@@ -45,6 +45,9 @@
 			
 		},
 		goDetail(id,browsePermission){
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
 			if (!uni.getStorageSync('token')) {
 			 uni.showModal({
 			   title: "授权登录",
@@ -68,7 +71,7 @@
 			let timestamp = Math.round(new Date() / 1000)
 			if(timestamp-uni.getStorageSync('PDFsubMsg')>=60*60*1){
 				wx.requestSubscribeMessage({
-					tmplIds:['UFE9-Ma7eyhyfScxZL6eMWosKAKcCHRpN6LmZMAEOBU'],
+					tmplIds:['6Bc8Ax3DxUPVbXbSTs2O_GiTIgAwShXJ8Wh7GX6jLJI'],
 					 success (res) { 
 						 console.log(res)
 						 let  timestamp = Math.round(new Date() / 1000)

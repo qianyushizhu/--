@@ -9,8 +9,8 @@ Vue.config.productionTip = false
 Vue.use(uView)
 App.mpType = 'app'
 // Vue.prototype.$imgUrl='http://oss.juxinban.cn/'
-Vue.prototype.$imgUrl='https://oss.juxinban.cn/'
-Vue.prototype.$imgUrl2='https://oss.juxinban.cn/'
+Vue.prototype.$imgUrl='https://file.innopinenut.com/'
+Vue.prototype.$imgUrl2='https://file.innopinenut.com/'
 Vue.prototype.$fifter= fifter
 Vue.prototype.$Dialog= Dialog
 Object.keys(fifter).forEach(key=>Vue.filter(key,fifter[key]))

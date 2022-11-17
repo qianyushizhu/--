@@ -148,10 +148,10 @@
 .wrap2 {
 	height: 72rpx;
 	border-radius: 16rpx;
-	border: 1px solid #588BFB;
+	border: 1px solid #49C265;
 	background-color: #fff;
 	width: 216rpx;
-	color: #588BFB;
+	color: #49C265;
 	justify-content: center;
 	align-items: center;
 	display: flex;
@@ -171,7 +171,7 @@
 .wrap3 {
 	height: 72rpx;
 	border-radius: 16rpx;
-	background-color: #588BFB;
+	background-color: #49C265;
 	width: 216rpx;
 	justify-content: center;
 	align-items: center;

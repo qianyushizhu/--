@@ -11,9 +11,9 @@
 	export default {
 		data() {
 			return {
-				url:'https://www.c-fol.net',
+				url:'',
 				share:{
-				    title:'和光荟',
+				    title:'松子创业营',
 				    path:'/pages/index/webView/webView?url=',
 					imageUrl:''
 				},
@@ -23,7 +23,6 @@
 		console.log(decodeURIComponent(opitons.url))
 			
 			this.url = decodeURIComponent(opitons.url)
-			
 			this.share.path += 	encodeURIComponent(this.url)
 			this.share.title = 	opitons.title
 			this.share.imageUrl = this.$imgUrl2+opitons.logoId

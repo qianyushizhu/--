@@ -15,7 +15,7 @@ export default {
 			userName: '',
 			headerImg: '',
 			pdfId: '',
-			str: '和光荟',
+			str: '松子创业营',
 			show: false,
 			context: null,
 		};
@@ -37,7 +37,7 @@ export default {
 			_this.context.drawImage('/static/new/gxzx_icon_beijing@2x.png', 0, 0, 299, 455);
 			_this.context.setFontSize(15);
 			_this.context.setFillStyle('#A6A6A6');
-			_this.context.fillText('邀请您加入和光荟', 84, 70); //文字
+			_this.context.fillText('邀请您加入松子创业营', 84, 70); //文字
 			_this.context.save();
 
 

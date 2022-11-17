@@ -14,7 +14,7 @@
 								</view>
 								
 							</view>
-							<view style="font-size: 24rpx;font-family: PingFang-SC-Regular, PingFang-SC;">手机号：{{ account ? account : '---------' }}</view>
+							<view style="font-size: 24rpx;font-family: PingFang-SC-Regular, PingFang-SC;">手机号：{{ phone ? phone : '---------' }}</view>
 						</view>
 					</view>
 					
@@ -41,7 +41,7 @@
 			</view>
 			<view class="my_item_part" @click="changeKefu">
 				<image src="../../static/my/sz_icon_kefu@2x.png" mode=""></image>
-				<view>客服</view>
+				<view>联系我们</view>
 			</view>
 
 			<view class="my_item_part" @click="goabout">
@@ -87,6 +87,7 @@ export default {
 			expireTime: '',
 			account: '',
 			userRole: '',
+			phone: '',
 			payTime: '',
 			loginTimes: '',
 			companyName:''
@@ -102,7 +103,7 @@ export default {
 	},
 	
 	onLoad() {
-		this.account = uni.getStorageSync('account') ? uni.getStorageSync('account') : '----';
+		this.phone = uni.getStorageSync('phone') ? uni.getStorageSync('phone') : '----';
 		this.showLogin = uni.getStorageSync('isLogin') ? true : false;
 		this.image = uni.getStorageSync('headLogoUrl');
 		this.token = uni.getStorageSync('token');
@@ -121,7 +122,7 @@ export default {
 		
 	},
 	onShow() {
-		this.account = uni.getStorageSync('account') ? uni.getStorageSync('account') : '----';
+		this.phone = uni.getStorageSync('phone') ? uni.getStorageSync('phone') : '----';
 		this.showLogin = uni.getStorageSync('isLogin') ? true : false;
 		this.image = uni.getStorageSync('headLogoUrl');
 		this.token = uni.getStorageSync('token');
@@ -156,7 +157,7 @@ export default {
 					uni.setStorageSync('headLogoUrl', res.data.headLogoUrl);
 					uni.setStorageSync('userRole', res.data.userRole);
 					uni.setStorageSync('accountLevel', res.data.accountLevel);
-					uni.setStorageSync('account', res.data.account);
+					uni.setStorageSync('phone', res.data.phone);
 					uni.setStorageSync('expireTime', res.data.expireTime);
 					uni.setStorageSync('phone', res.data.phone);
 					uni.setStorageSync('serviceName', res.data.serviceName);
@@ -196,6 +197,9 @@ export default {
 			this.vipShowxxxxx = false;
 		},
 		goabout() {
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
 			if (!uni.getStorageSync('token')) {
 				uni.showModal({
 					title: '授权登录',
@@ -314,6 +318,9 @@ export default {
 			});
 		},
 		tocollect() {
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
 			if (!uni.getStorageSync('token')) {
 				uni.showModal({
 					title: '授权登录',
@@ -335,6 +342,10 @@ export default {
 			});
 		},
 		toDownload() {
+			
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
 			if (!uni.getStorageSync('token')) {
 				uni.showModal({
 					title: '授权登录',
@@ -350,13 +361,20 @@ export default {
 					}
 				});
 				return;
+				
 			}
 			uni.navigateTo({
 				url: 'myDownload/myDownload'
 			});
 		},
 		changeKefu() {
-			this.showKefu = !this.showKefu;
+			if (uni.getStorageSync('status')==1){
+						   return false
+			}
+			// this.showKefu = !this.showKefu;
+			uni.navigateTo({
+				url: 'conactUs/conactUs'
+			});
 		},
 		takePhone() {
 			wx.makePhoneCall({
